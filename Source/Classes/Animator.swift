@@ -89,6 +89,13 @@ public class Animator {
     frameStore?.prepareFrames(completionHandler)
     attachDisplayLink()
   }
+    
+    func prepareForAnimation(withGIFURL url: URL, size: CGSize, contentMode: UIViewContentMode, loopCount: Int = 0, completionHandler: ((Void) -> Void)? = .none) {
+        frameStore = FrameStore(url: url, size: size, contentMode: contentMode, framePreloadCount: frameBufferCount, loopCount: loopCount)
+        frameStore?.shouldResizeFrames = shouldResizeFrames
+        frameStore?.prepareFrames(completionHandler)
+        attachDisplayLink()
+    }
 
 
   /// Add the display link to the main run loop.
@@ -135,6 +142,11 @@ public class Animator {
     prepareForAnimation(withGIFData: imageData, size: size, contentMode: contentMode, loopCount: loopCount)
     startAnimating()
   }
+    
+    func animate(withGIFURL url: URL, size: CGSize, contentMode: UIViewContentMode, loopCount: Int = 0) {
+        prepareForAnimation(withGIFURL: url, size: size, contentMode: contentMode, loopCount: loopCount)
+        startAnimating()
+    }
 
   /// Stop animating and nullify the frame store.
   func prepareForReuse() {

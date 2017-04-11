@@ -64,6 +64,10 @@ extension GIFAnimatable {
   public func animate(withGIFData imageData: Data, loopCount: Int = 0) {
     animator?.animate(withGIFData: imageData, size: frame.size, contentMode: contentMode, loopCount: loopCount)
   }
+    
+    public func animate(withGIFURL url: URL, loopCount: Int = 0) {
+        animator?.animate(withGIFURL: url, size: frame.size, contentMode: contentMode)
+    }
 
   /// Prepares the animator instance for animation.
   ///
@@ -84,6 +88,11 @@ extension GIFAnimatable {
 
     animator?.prepareForAnimation(withGIFData: imageData, size: frame.size, contentMode: contentMode, loopCount: loopCount, completionHandler: completionHandler)
   }
+    
+    public func prepareForAnimation(withGIFURL url: URL, loopCount: Int = 0, completionHandler: ((Void) -> Void)? = .none) {
+        
+        animator?.prepareForAnimation(withGIFURL: url, size: frame.size, contentMode: contentMode, loopCount: loopCount, completionHandler: completionHandler)
+    }
 
   /// Stop animating and free up GIF data from memory.
   public func prepareForReuse() {

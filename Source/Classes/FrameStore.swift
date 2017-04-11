@@ -90,7 +90,16 @@ class FrameStore {
     self.bufferFrameCount = framePreloadCount
     self.loopCount = loopCount
   }
-
+    
+    init(url: URL, size: CGSize, contentMode: UIViewContentMode, framePreloadCount: Int, loopCount: Int) {
+        let options = [String(kCGImageSourceShouldCache): kCFBooleanFalse] as CFDictionary
+        self.imageSource = CGImageSourceCreateWithURL(url as CFURL, options) ?? CGImageSourceCreateIncremental(options)
+        self.size = size
+        self.contentMode = contentMode
+        self.bufferFrameCount = framePreloadCount
+        self.loopCount = loopCount
+    }
+    
   // MARK: - Frames
   /// Loads the frames from an image source, resizes them, then caches them in `animatedFrames`.
   func prepareFrames(_ completionHandler: ((Void) -> Void)? = .none) {
